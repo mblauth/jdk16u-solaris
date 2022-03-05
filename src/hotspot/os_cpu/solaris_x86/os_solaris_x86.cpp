@@ -378,6 +378,12 @@ bool os::is_allocatable(size_t bytes) {
 
 }
 
+juint os::cpu_microcode_revision() {
+  juint result = 0;
+  // to implement this, look at the source for ucodeadm -v
+  return result;
+}
+
 extern "C" JNIEXPORT int
 JVM_handle_solaris_signal(int sig, siginfo_t* info, void* ucVoid,
                           int abort_if_unrecognized) {
