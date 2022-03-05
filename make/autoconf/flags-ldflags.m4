@@ -137,11 +137,13 @@ AC_DEFUN([FLAGS_SETUP_LDFLAGS_HELPER],
 
   # Setup LDFLAGS for linking executables
   if test "x$TOOLCHAIN_TYPE" = xgcc; then
-    EXECUTABLE_LDFLAGS="$EXECUTABLE_LDFLAGS -Wl,--allow-shlib-undefined"
-    # Enabling pie on 32 bit builds prevents the JVM from allocating a continuous
-    # java heap.
-    if test "x$OPENJDK_TARGET_CPU_BITS" != "x32"; then
-      EXECUTABLE_LDFLAGS="$EXECUTABLE_LDFLAGS -pie"
+    if test "x$OPENJDK_TARGET_OS" != xsolaris; then
+      EXECUTABLE_LDFLAGS="$EXECUTABLE_LDFLAGS -Wl,--allow-shlib-undefined"
+      # Enabling pie on 32 bit builds prevents the JVM from allocating a continuous
+      # java heap.
+      if test "x$OPENJDK_TARGET_CPU_BITS" != "x32"; then
+        EXECUTABLE_LDFLAGS="$EXECUTABLE_LDFLAGS -pie"
+      fi
     fi
   fi
 
