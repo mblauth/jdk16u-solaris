@@ -147,7 +147,7 @@ AC_DEFUN_ONCE([LIB_SETUP_LIBRARIES],
 
   if test "x$OPENJDK_TARGET_OS" = xsolaris; then
     BASIC_JVM_LIBS="$BASIC_JVM_LIBS -lsocket -lsched -ldoor -lnsl \
-        -lrt -lkstat"
+        -lrt -lkstat -lssp"
     BASIC_JVM_LIBS="$BASIC_JVM_LIBS $LIBCXX_JVM"
   fi
 
