@@ -484,8 +484,8 @@ AC_DEFUN([FLAGS_SETUP_CFLAGS_HELPER],
   fi
 
   if test "x$TOOLCHAIN_TYPE" = xgcc; then
-    TOOLCHAIN_CFLAGS_JVM="$TOOLCHAIN_CFLAGS_JVM -fcheck-new -fstack-protector"
-    TOOLCHAIN_CFLAGS_JDK="-pipe -fstack-protector"
+    TOOLCHAIN_CFLAGS_JVM="$TOOLCHAIN_CFLAGS_JVM -fcheck-new"
+    TOOLCHAIN_CFLAGS_JDK="-pipe"
     # reduce lib size on linux in link step, this needs also special compile flags
     # do this on s390x also for libjvm (where serviceability agent is not supported)
     if test "x$ENABLE_LINKTIME_GC" = xtrue; then
@@ -539,7 +539,12 @@ AC_DEFUN([FLAGS_SETUP_CFLAGS_HELPER],
   # C99 level.
   if test "x$TOOLCHAIN_TYPE" = xgcc || test "x$TOOLCHAIN_TYPE" = xclang || test "x$TOOLCHAIN_TYPE" = xxlc; then
     # Explicitly set C99. clang and xlclang support the same flag.
-    LANGSTD_CFLAGS="-std=c99"
+    if test "x$OPENJDK_TARGET_OS" = xsolaris; then
+      # illumos headers are confused by c99
+      LANGSTD_CFLAGS="-std=gnu99"
+    else
+      LANGSTD_CFLAGS="-std=c99"
+    fi
   elif test "x$TOOLCHAIN_TYPE" = xmicrosoft; then
     # MSVC doesn't support C99/C11 explicitly, unless you compile as C++:
     # LANGSTD_CFLAGS="-TP"
