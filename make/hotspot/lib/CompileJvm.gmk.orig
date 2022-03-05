@@ -158,7 +158,7 @@ $(eval $(call SetupJdkLibrary, BUILD_LIBJVM, \
     DISABLED_WARNINGS_solstudio := $(DISABLED_WARNINGS_solstudio), \
     DISABLED_WARNINGS_xlc := $(DISABLED_WARNINGS_xlc), \
     DISABLED_WARNINGS_microsoft := $(DISABLED_WARNINGS_microsoft), \
-    ASFLAGS := , \
+    ASFLAGS := $(JVM_ASFLAGS), \
     LDFLAGS := $(JVM_LDFLAGS), \
     LIBS := $(JVM_LIBS), \
     OPTIMIZATION := $(JVM_OPTIMIZATION), \
