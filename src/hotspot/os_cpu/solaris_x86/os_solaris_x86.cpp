@@ -494,7 +494,7 @@ bool PosixSignals::pd_hotspot_signal_handler(int sig, siginfo_t* info,
   // Furthermore, a false-positive should be harmless.
   if (UnguardOnExecutionViolation > 0 &&
       (sig == SIGSEGV || sig == SIGBUS) &&
-      uc->uc_mcontext.gregs[TRAPNO] == T_PGFLT) {  // page fault
+      uc->uc_mcontext.gregs[REG32_TRAPNO] == T_PGFLT) {  // page fault
     int page_size = os::vm_page_size();
     address addr = (address) info->si_addr;
     address pc = (address) uc->uc_mcontext.gregs[REG_PC];
