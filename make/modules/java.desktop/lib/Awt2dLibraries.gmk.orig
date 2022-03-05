@@ -674,9 +674,11 @@ else # not windows
       JAWT_LIBS += -lawt_xawt
     else
       JAWT_LIBS += -lawt_headless
+      ifeq ($(call isTargetOs, linux), true)
         JAWT_CFLAGS += -DHEADLESS
       endif
     endif
+  endif
 
   $(eval $(call SetupJdkLibrary, BUILD_LIBJAWT, \
       NAME := jawt, \
