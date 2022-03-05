@@ -168,12 +168,6 @@ address os::Solaris::_main_stack_base = NULL;  // 4352906 workaround
 
 os::Solaris::pthread_setname_np_func_t os::Solaris::_pthread_setname_np = NULL;
 
-// "default" initializers for missing libc APIs
-extern "C" {
-  int memcntl(caddr_t, size_t, int, caddr_t, int, int);
-  int meminfo(const uint64_t *, int, const uint_t *, int, uint64_t *, uint_t *);
-}
-
 // "default" initializers for pthread-based synchronization
 extern "C" {
   static int pthread_mutex_default_init(mutex_t *mx, int scope, void *arg) { memset(mx, 0, sizeof(mutex_t)); return 0; }
@@ -2242,7 +2236,7 @@ bool os::Solaris::setup_large_pages(caddr_t start, size_t bytes, size_t align) {
   mpss_struct.mha_pagesize = align;
   mpss_struct.mha_flags = 0;
   // Upon successful completion, memcntl() returns 0
-  if (memcntl(start, bytes, MC_HAT_ADVISE, (caddr_t) &mpss_struct, 0, 0)) {
+  if (memcntl(start, bytes, MC_HAT_ADVISE, (void*) &mpss_struct, 0, 0)) {
     debug_only(warning("Attempt to use MPSS failed."));
     return false;
   }
