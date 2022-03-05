@@ -71,6 +71,7 @@
 
 # include <signal.h>
 # include <errno.h>
+# include <alloca.h>
 
 OSThread*         os::_starting_thread    = NULL;
 address           os::_polling_page       = NULL;
