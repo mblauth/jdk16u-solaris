@@ -80,7 +80,11 @@ AC_DEFUN([FLAGS_SETUP_LDFLAGS_HELPER],
       fi
     fi
 
-    BASIC_LDFLAGS_JVM_ONLY="-Wl,-O1"
+    if test "x$OPENJDK_TARGET_OS" = xsolaris; then
+      BASIC_LDFLAGS_JVM_ONLY=""
+    else
+      BASIC_LDFLAGS_JVM_ONLY="-Wl,-O1"
+    fi
 
   elif test "x$TOOLCHAIN_TYPE" = xclang; then
     BASIC_LDFLAGS_JVM_ONLY="-mno-omit-leaf-frame-pointer -mstack-alignment=16 \
