@@ -43,6 +43,9 @@
 #ifdef COMPILER2
 #include "opto/runtime.hpp"
 #endif
+#ifdef __sun__
+#include <alloca.h>
+#endif
 
 // For SafeFetch we need POSIX tls and setjmp
 #include <setjmp.h>
